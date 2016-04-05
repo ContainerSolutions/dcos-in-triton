@@ -1,0 +1,2 @@
+# Ignore Terraform's state files.
+terraform.tfstate*
