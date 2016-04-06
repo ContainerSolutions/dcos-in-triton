@@ -1,2 +1,5 @@
 # Ignore Terraform's state files.
-terraform.tfstate*
+/terraform.tfstate*
+
+# Ignore vagrant cache files
+/.vagrant/
