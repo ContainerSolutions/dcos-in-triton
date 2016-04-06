@@ -1,0 +1,62 @@
+SHORTID   NAME                          DEFAULT  MEMORY    SWAP  DISK  VCPUS
+215d6253  Extra Small 512 MB            false      512M      1G   15G      1
+ccc8a93a  Small 1GB                     true         1G      2G   30G      1
+f47fd492  Medium 2GB                    false        2G      4G   60G      2
+e44cc8ab  Medium 4GB                    false        4G      8G  120G      4
+b4328fa6  Large 8GB                     false        8G     16G  240G      8
+779b82cc  Large 16GB                    false       16G     32G  480G     12
+a38220af  XL 32GB                       false       32G     64G  760G     16
+2ff34c46  XXL 48GB                      false       48G     96G    1T     16
+5616b544  XXXL 64GB                     false       64G    128G  1.5T     16
+582841dc  g3-highcpu-1.75-kvm           false      1.7G    3.5G   75G      2
+9d98131b  g3-highcpu-1.75-smartos       false      1.7G    3.5G   75G      -
+7e226056  g3-highcpu-4-kvm              false        4G      8G  150G      4
+3cb669ab  g3-highcpu-4-smartos          false        4G      8G  150G      -
+d4756f6f  g3-highcpu-7-smartos          false        7G     14G  263G      -
+f3e9e120  g3-highcpu-7-kvm              false        7G     14G  263G      7
+24e6932e  g3-highcpu-8-smartos          false        8G     14G  300G      -
+d3a33318  g3-highcpu-8-kvm              false        8G     14G  300G      8
+cef28b34  g3-highcpu-16-smartos         false       16G     32G  600G      -
+5d851f41  g3-highcpu-24-smartos         false       24G     48G  900G      -
+b995c6a2  g3-highio-15-smartos          false       15G     30G  360G      -
+7051f5b0  g3-highio-15-kvm              false       15G     30G  360G      2
+00747b85  g3-highio-30-kvm              false       30G     60G  720G      4
+58e0f906  g3-highio-30-smartos          false       30G     60G  720G      -
+07ee4803  g3-highio-60.5-kvm            false     60.5G    121G  1.4T      8
+9dab0fff  g3-highio-60.5-smartos        false     60.5G    121G  1.4T      -
+9cc0691d  g3-highmemory-17.125-kvm      false     17.1G   34.2G  420G      2
+9b736478  g3-highmemory-17.125-smartos  false     17.1G   34.2G  420G      -
+7b2a8925  g3-highmemory-34.25-smartos   false     34.2G   68.5G  843G      -
+b4ce1d68  g3-highmemory-34.25-kvm       false     34.2G   68.5G  843G      4
+7bbd1598  g3-highmemory-68.375-smartos  false     68.3G  136.7G  1.0T      -
+2d0e991b  g3-highmemory-68.375-kvm      false     68.3G  136.7G  1.0T      8
+f917d6c7  g3-standard-0.25-smartos      false      256M    512M   16G      -
+d6987187  g3-standard-0.25-kvm          false      256M    512M   16G      1
+4dad8aa6  g3-devtier-0.25-kvm           false      256M    512M   16G      1
+9fcd9ab7  g3-devtier-0.25-smartos       false      256M    512M   16G      -
+43793d4c  g3-standard-0.5-smartos       false      512M      1G   16G      -
+ec521e7a  g3-standard-0.5-kvm           false      512M      1G   16G      1
+b2e6650e  g3-standard-0.625-kvm         false      640M    1.2G   20G      1
+2a6151bf  g3-standard-0.625-smartos     false      640M    1.2G   20G      -
+d6ca9994  g3-standard-1-smartos         false        1G      2G   33G      -
+5d367f42  g3-standard-1-kvm             false        1G      2G   33G      1
+c94143a9  g3-standard-1.75-smartos      false      1.7G    3.5G   56G      -
+e52df920  g3-standard-1.75-kvm          false      1.7G    3.5G   56G      1
+ed4e7e08  g3-standard-2-smartos         false        2G      4G   66G      -
+6ea38a37  g3-standard-2-kvm             false        2G      4G   66G      1
+a82b6546  g3-standard-3.75-smartos      false      3.7G    7.5G  123G      -
+d33b3f0c  g3-standard-3.75-kvm          false      3.7G    7.5G  123G      1
+b295d278  g3-standard-4-smartos         false        4G      8G  131G      -
+bb3fc5de  g3-standard-4-kvm             false        4G      8G  131G      1
+813e5040  g3-standard-7.5-kvm           false      7.5G     15G  738G      2
+7b6f8be7  g3-standard-7.5-smartos       false      7.5G     15G  738G      -
+022fe7d1  g3-standard-8-smartos         false        8G     16G  789G      -
+4edf4bae  g3-standard-8-kvm             false        8G     16G  789G      2
+08488592  g3-standard-15-smartos        false       15G     30G  1.4T      -
+d6d04a00  g3-standard-15-kvm            false       15G     30G  1.4T      4
+5f0e8fa5  g3-standard-30-kvm            false       30G     60G  1.6T      8
+2590f87c  g3-standard-30-smartos        false       30G     60G  1.6T      -
+4f441e0c  g3-standard-32-smartos        false       32G     64G  1.6T      -
+1d18cb8d  g3-standard-48-smartos        false       48G     96G  1.6T      -
+5f6a37b9  g3-standard-64-smartos        false       64G    128G  2.0T      -
+b29fb8a1  g3-standard-80-smartos        false       80G    160G  2.5T      -
