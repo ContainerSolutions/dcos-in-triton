@@ -3,3 +3,6 @@
 
 # Ignore vagrant cache files
 /.vagrant/
+
+# Ignore Ansible cache files
+/plays/cache/

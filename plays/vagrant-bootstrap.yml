@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+    - name: setup ssh keys
+      authorized_key: user={{ item }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      with_items:
+        - root
+        - vagrant

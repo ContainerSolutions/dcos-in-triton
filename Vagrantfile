@@ -7,4 +7,8 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024" # Customize the amount of memory on the VM:
   end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "plays/vagrant-bootstrap.yml"
+  end
 end
