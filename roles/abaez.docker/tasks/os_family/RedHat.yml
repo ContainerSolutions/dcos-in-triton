@@ -10,3 +10,12 @@
   with_items:
     - docker-engine
     - python-docker-py
+
+- name: configure Docker daemon with storage driver
+  template:
+    owner=root
+    src=docker.conf
+    dest=/usr/lib/systemd/system/docker.service
+  notify:
+    - reload units
+    - restart docker
