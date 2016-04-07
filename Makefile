@@ -4,7 +4,7 @@ vagrant:
 	@vagrant up
 
 provision:
-	@ansible-playbook -i ./plays/inventory/vagrant plays/triton.yml
+	@ansible-playbook -i plays/inventory/vagrant.py plays/triton.yml
 
 destroy:
 	@vagrant destroy -f
