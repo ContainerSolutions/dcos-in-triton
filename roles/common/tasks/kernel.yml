@@ -1,20 +1,22 @@
 ---
 - name: check if kernel upgrade is pending
-  shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then true; else false; fi
+  shell: if [[ "{{ ansible_kernel }}" =~ ^3. ]]; then echo "yes"; else echo "nope"; fi
+  changed_when: no
   ignore_errors: yes
   register: must_upgrade_kernel
 
 - name: tell grub to boot latest kernel by default
   shell: egrep ^menuentry /etc/grub2.cfg | cut -f 2 -d \' | head -1 | awk '{ print "grub2-set-default \"" $0 "\"" }' | sh
-  when: must_upgrade_kernel
+  when: must_upgrade_kernel.stdout == "yes"
 
 - name: restart machine
   shell: sleep 2 && shutdown -r now "Applying Ansible kernel upgrade"
   async: 1
   poll: 0
   ignore_errors: yes
-  when: must_upgrade_kernel
+  when: must_upgrade_kernel.stdout == "yes"
 
 - name: waiting for server to come back
-  local_action: wait_for port={{ ansible_port }} host={{ ansible_host | default(inventory_hostname) }} state=started delay=10 connect_timeout=3
-  when: must_upgrade_kernel
+  local_action:
+    module: wait_for port={{ ansible_port }} host={{ ansible_host | default(inventory_hostname) }} state=started delay=10 connect_timeout=30
+  when: must_upgrade_kernel.stdout == "yes"
