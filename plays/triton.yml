@@ -4,3 +4,4 @@
   become_user: root
   roles:
     - roles/common
+    - roles/abaez.docker
