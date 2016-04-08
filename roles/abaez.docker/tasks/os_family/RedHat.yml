@@ -1,0 +1,21 @@
+---
+- name: install yum repo
+  template:
+    owner=root
+    src=docker.repo
+    dest=/etc/yum.repos.d/docker.repo
+
+- name: Install docker
+  yum: name={{ item }} state=latest
+  with_items:
+    - docker-engine
+    - python-docker-py
+
+- name: configure Docker daemon with storage driver
+  template:
+    owner=root
+    src=docker.conf
+    dest=/usr/lib/systemd/system/docker.service
+  notify:
+    - reload units
+    - restart docker
