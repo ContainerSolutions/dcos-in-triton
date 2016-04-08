@@ -6,3 +6,6 @@
 
 # Ignore Ansible cache files
 /plays/cache/
+
+inv
+plays/triton.retry
