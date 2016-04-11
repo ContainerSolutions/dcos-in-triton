@@ -17,6 +17,11 @@
   when: must_upgrade_kernel.stdout == "yes"
 
 - name: waiting for server to come back
-  local_action:
-    module: wait_for port={{ ansible_port }} host={{ ansible_host | default(inventory_hostname) }} state=started delay=10 connect_timeout=30
+  wait_for: >
+    port={{ ansible_port }}
+    host={{ ansible_host | default(inventory_hostname) }}
+    state=started
+    delay=10
+    connect_timeout=30
+  delegate_to: localhost
   when: must_upgrade_kernel.stdout == "yes"
