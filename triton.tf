@@ -13,3 +13,10 @@ resource "triton_machine" "bootstrap" {
     role = "bootstrap"
   }
 }
+
+resource "null_resource" "bootstrap-provisioning" {
+  depends_on = ["triton_machine.bootstrap"]
+  provisioner "local-exec" {
+    command = "ansible-playbook plays/triton.yml -u root -i terraform.py"
+  }
+}
