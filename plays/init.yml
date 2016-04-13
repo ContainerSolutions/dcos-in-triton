@@ -5,3 +5,9 @@
   roles:
     - roles/common
     - roles/abaez.docker
+
+- hosts: bootstrap
+  become: yes
+  become_user: root
+  roles:
+    - roles/bootstrap

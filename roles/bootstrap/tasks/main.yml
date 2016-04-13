@@ -1,0 +1,12 @@
+---
+- name: ensure zookeeper container is running
+  docker:
+    name: dcos_int_zk
+    image: jplock/zookeeper
+    state: started
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    volumes:
+      - "/var/zookeeper/dcos:/tmp/zookeeper"
