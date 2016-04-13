@@ -1,38 +1,38 @@
 #!/usr/bin/env ruby
 
-require 'json'
-#tf_file = ARGV[0]
+require "json"
 
-#tf = JSON.load(File.open(tf_file))
-tf = JSON.load(File.open('terraform.tfstate'))
-raise 'no modules in input file' if !tf['modules'] || tf['modules'].empty?
-IP_PATTERN = /^37\./
+tf = JSON.load(File.open("terraform.tfstate"))
+raise "no modules in input file" if !tf["modules"] || tf["modules"].empty?
 
-ips = {'bootstrap' => [], 'master' => [], 'agent' => []}
-tf['modules'][0]['resources'].each do |resource_name, resource|
+inventory = {
+  bootstrap: [],
+  master:    [],
+  agent:     [],
+  _meta:     {
+    hostvars: {}
+  }
+}
+
+tf["modules"][0]["resources"].each do |resource_name, resource|
   if resource_name =~ /\-(agent|master|bootstrap)$/
     resource_key = $1
-    ip_count = resource['primary']['attributes']['ips.#'].to_i
-    ip_count.times do |i|
-      ip = resource['primary']['attributes']["ips.#{i}"]
-      if ip =~ IP_PATTERN
-        ips[resource_key] << ip
-        break
-      end
-    end
+    ip = resource["primary"]["attributes"]["primaryip"]
+    inventory[resource_key.to_sym] << ip
   end
 end
 
-output = ips.merge({
-  '_meta' => {
-    'hostvars' => {
-      ips['master'][0] => {
-        'ansible_host' => ips['master'][0],
-        'ansible_port' => '22',
-        'ansible_user' => 'root',
-        'bootstrap_host' => ips['bootstrap'][0]
-      }
+[:bootstrap, :master, :agent].each do |group|
+  hosts = inventory[group]
+  hosts.each do |host|
+    hostvars = {
+      ansible_host: host,
+      ansible_port: "22",
+      ansible_user: "root",
     }
-  }
-})
-puts JSON.pretty_generate(output)
+    hostvars[:bootstrap_host] = inventory[:bootstrap].first unless group == :bootstrap
+    inventory[:_meta][:hostvars][host] = hostvars
+  end
+end
+
+puts inventory.to_json
