@@ -125,7 +125,7 @@ if options.list:
 
     hosts = list(ssh_config.keys())
 
-    inventory = {_group: hosts, '_meta': meta }
+    inventory = {_group: hosts, 'bootstrap': hosts, 'master': hosts, 'agent': hosts, '_meta': meta}
     print(json.dumps(inventory))
     sys.exit(0)
 
