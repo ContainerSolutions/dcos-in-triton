@@ -1,7 +1,10 @@
-require 'json'
-tf_file = ARGV[0]
+#!/usr/bin/env ruby
 
-tf = JSON.load(File.open(tf_file))
+require 'json'
+#tf_file = ARGV[0]
+
+#tf = JSON.load(File.open(tf_file))
+tf = JSON.load(File.open('terraform.tfstate'))
 raise 'no modules in input file' if !tf['modules'] || tf['modules'].empty?
 IP_PATTERN = /^37\./
 
@@ -27,7 +30,7 @@ output = ips.merge({
         'ansible_host' => ips['master'][0],
         'ansible_port' => '22',
         'ansible_user' => 'root',
-        'bootstrap_ip' => ips['bootstrap'][0]
+        'bootstrap_host' => ips['bootstrap'][0]
       }
     }
   }
