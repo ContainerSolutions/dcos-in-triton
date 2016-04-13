@@ -3,7 +3,7 @@ tf_file = ARGV[0]
 
 tf = JSON.load(File.open(tf_file))
 raise 'no modules in input file' if !tf['modules'] || tf['modules'].empty?
-IP_PATTERN = /^10\./
+IP_PATTERN = /^37\./
 
 ips = {'bootstrap' => [], 'master' => [], 'agent' => []}
 tf['modules'][0]['resources'].each do |resource_name, resource|
