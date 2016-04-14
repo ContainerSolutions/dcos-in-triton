@@ -16,3 +16,19 @@
   become_user: root
   roles:
     - roles/bootstrap
+
+- hosts: master
+  become: yes
+  become_user: root
+  vars:
+    - server_role: "master"
+  roles:
+    - roles/dcos-node
+
+- hosts: agent
+  become: yes
+  become_user: root
+  vars:
+    - server_role: "agent"
+  roles:
+    - roles/dcos-node

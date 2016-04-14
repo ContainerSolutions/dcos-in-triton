@@ -1,0 +1,25 @@
+---
+- sysctl: name=net.ipv6.conf.all.disable_ipv6 value=1 state=present
+
+- sysctl: name=net.ipv6.conf.default.disable_ipv6 value=1 state=present
+
+- name: ensure nogroup group is present
+  group: name=nogroup state=present
+
+- name: ensure DCOS required packages are installed
+  yum: name={{ item }} state=present
+  with_items:
+    - unzip
+    - ipset
+
+- name: ensure DCOS base folder is present
+  file: path=/tmp/dcos state=directory
+
+- name: ensure DCOS installation script is present
+  get_url: url=http://{{ bootstrap_host }}:8888/dcos_install.sh dest=/tmp/dcos/dcos_install.sh
+
+- name: ensure DCOS installation script has the proper permissions & mode
+  file: path=/tmp/dcos/dcos_install.sh owner=root group=root mode="u=rwx"
+
+- name: ensure DCOS is installed
+  command: /tmp/dcos/dcos_install.sh {{ server_role }} creates=/etc/mesosphere
