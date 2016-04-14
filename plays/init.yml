@@ -4,11 +4,6 @@
   become_user: root
   roles:
     - roles/common
-
-- hosts: bootstrap, master
-  become: yes
-  become_user: root
-  roles:
     - roles/abaez.docker
 
 - hosts: bootstrap
@@ -29,6 +24,6 @@
   become: yes
   become_user: root
   vars:
-    - server_role: "agent"
+    - server_role: "slave"
   roles:
     - roles/dcos-node
