@@ -14,24 +14,35 @@ inventory = {
   }
 }
 
-tf["modules"][0]["resources"].each do |resource_name, resource|
-  if resource_name =~ /\-(agent|master|bootstrap)$/
-    resource_key = $1
-    ip = resource["primary"]["attributes"]["primaryip"]
-    inventory[resource_key.to_sym] << ip
-  end
-end
+grouped_machines = tf["modules"][0]["resources"].map do |name, resource|
+  next unless name =~ /^triton_machine/
+  attrs = resource["primary"]["attributes"]
+  OpenStruct.new({
+    name:      attrs["name"],
+    group:     attrs["tags.role"].to_sym,
+    privateip: attrs["ips.1"],
+    publicip:  attrs["primaryip"]
+  })
+end.compact.group_by { |m| m.group }
 
-[:bootstrap, :master, :agent].each do |group|
-  hosts = inventory[group]
-  hosts.each do |host|
+
+grouped_machines.each do |group, machines|
+  inventory[group] = machines.map { |m| m.publicip }
+
+  machines.each do |m|
     hostvars = {
-      ansible_host: host,
+      ansible_host: m.publicip,
       ansible_port: "22",
       ansible_user: "root",
+      bootstrap_host: grouped_machines[:bootstrap].first.privateip
     }
-    hostvars[:bootstrap_host] = inventory[:bootstrap].first unless group == :bootstrap
-    inventory[:_meta][:hostvars][host] = hostvars
+
+    if m.group == :bootstrap
+      hostvars[:masters] = grouped_machines[:master].map { |m| m.privateip }
+      hostvars[:agents]  = grouped_machines[:agent].map { |m| m.privateip }
+    end
+
+    inventory[:_meta][:hostvars][m.publicip] = hostvars
   end
 end
 

@@ -10,3 +10,34 @@
       - "3888:3888"
     volumes:
       - "/var/zookeeper/dcos:/tmp/zookeeper"
+
+- name: ensure genconf folder is present
+  file: path=/root/genconf state=directory
+
+- name: ensure ip-detect script is present
+  copy: src=ipdetect dest=/root/genconf/ip-detect owner=root group=root mode="u+rwx"
+
+- name: ensure genconf YAML config file is present
+  template: src=config.j2.yaml dest=/root/genconf/config.yaml owner=root group=root
+
+- name: ensure DCOS installation script is present
+  get_url:
+    url: https://s3.amazonaws.com/downloads.mesosphere.io/dcos/testing/CM.7/dcos_generate_config.sh
+    dest: /root/dcos_generate_config.sh
+    checksum: sha1:34b98150cee3e1b8ad53a970bce944e1f984a230
+
+- name: ensure DCOS installation script has the proper permissions & mode
+  file: path=/root/dcos_generate_config.sh owner=root group=root mode="u=rwx"
+
+- name: ensure DCOS is installed
+  command: /root/dcos_generate_config.sh creates=/root/genconf/state
+
+- name: ensure nginx container is running serving genconf files
+  docker:
+    name: dcos_nginx
+    image: nginx
+    state: started
+    ports:
+      - "8888:80"
+    volumes:
+      - "/root/genconf/serve:/usr/share/nginx/html:ro"

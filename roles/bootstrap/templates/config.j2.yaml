@@ -1,0 +1,20 @@
+agent_list:
+{% for agent in agents %}
+  - {{ agent }}
+{% endfor %}
+bootstrap_url: "http://{{ bootstrap_host }}:8888"
+cluster_name: DCOS
+exhibitor_storage_backend: static
+master_discovery: static
+master_list:
+{% for master in masters %}
+  - {{ master }}
+{% endfor %}
+process_timeout: 10000
+resolvers:
+  - 8.8.8.8
+  - 8.8.4.4
+ssh_port: 22
+ssh_user: core
+superuser_password_hash: none
+superuser_username: none
