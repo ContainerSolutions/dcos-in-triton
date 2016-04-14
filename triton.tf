@@ -15,7 +15,7 @@ resource "triton_machine" "dcos-bootstrap" {
   }
 
   connection {
-    host = "${triton_machine.dcos-bootstrap.primaryip}"
+    host        = "${self.primaryip}"
     private_key = "${file(var.key_path)}"
   }
 
@@ -35,7 +35,7 @@ resource "triton_machine" "dcos-master" {
   }
 
   connection {
-    host = "${triton_machine.dcos-bootstrap.primaryip}"
+    host        = "${self.primaryip}"
     private_key = "${file(var.key_path)}"
   }
 
@@ -55,7 +55,7 @@ resource "triton_machine" "dcos-agent" {
   }
 
   connection {
-    host = "${triton_machine.dcos-bootstrap.primaryip}"
+    host = "${self.primaryip}"
     private_key = "${file(var.key_path)}"
   }
 
