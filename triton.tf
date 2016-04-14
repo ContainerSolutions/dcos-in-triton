@@ -8,7 +8,7 @@ resource "triton_machine" "dcos-bootstrap" {
   count   = 1
   name    = "dcos-bootstrap"
   image   = "d8e65ea2-1f3e-11e5-8557-6b43e0a88b38"
-  package = "g3-standard-7.5-kvm"
+  package = "g3-standard-2-kvm"
 
   tags {
     role = "bootstrap"
@@ -28,7 +28,7 @@ resource "triton_machine" "dcos-master" {
   count   = 1
   name    = "${format(\"dcos-master-%03d\", count.index + 1)}"
   image   = "d8e65ea2-1f3e-11e5-8557-6b43e0a88b38"
-  package = "g3-standard-7.5-kvm"
+  package = "g3-standard-2-kvm"
 
   tags {
     role = "master"
@@ -48,7 +48,7 @@ resource "triton_machine" "dcos-agent" {
   count   = 1
   name    = "${format(\"dcos-agent-%03d\", count.index + 1)}"
   image   = "d8e65ea2-1f3e-11e5-8557-6b43e0a88b38"
-  package = "g3-standard-7.5-kvm"
+  package = "g3-standard-2-kvm"
 
   tags {
     role = "agent"
