@@ -31,10 +31,11 @@ grouped_machines.each do |group, machines|
 
   machines.each do |m|
     hostvars = {
-      ansible_host: m.publicip,
-      ansible_port: "22",
-      ansible_user: "root",
-      bootstrap_host: grouped_machines[:bootstrap].first.privateip
+      ansible_host:   m.publicip,
+      ansible_port:   "22",
+      ansible_user:   "root",
+      bootstrap_host: grouped_machines[:bootstrap].first.privateip,
+      name:           m.name
     }
 
     if m.group == :bootstrap

@@ -2,3 +2,4 @@
 - include: packages.yml
 - include: firewall.yml
 - include: kernel.yml
+- include: config.yml
