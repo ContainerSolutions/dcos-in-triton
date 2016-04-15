@@ -63,10 +63,3 @@ resource "triton_machine" "dcos-agent" {
     inline = ["/bin/true"]
   }
 }
-
-resource "null_resource" "init" {
-  depends_on = ["triton_machine.dcos-bootstrap", "triton_machine.dcos-master", "triton_machine.dcos-agent"]
-  provisioner "local-exec" {
-    command = "ansible-playbook plays/init.yml -u root -i script.rb"
-  }
-}
