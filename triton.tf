@@ -5,7 +5,6 @@ provider "triton" {
 }
 
 resource "triton_machine" "dcos-bootstrap" {
-  count   = 1
   name    = "dcos-bootstrap"
   image   = "d8e65ea2-1f3e-11e5-8557-6b43e0a88b38"
   package = "g3-standard-2-kvm"
