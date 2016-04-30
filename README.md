@@ -21,16 +21,24 @@ $ export TF_VAR_key_id=yourkeyid
 $ export TF_VAR_key_path=/path/to/ssh/key # (defaults to ~/.ssh/id_rsa)
 ```
 
-**Important Note:** You will need to use the MD5 hash of your SSH key for the TF_VAR_key_id vaiable; not the SHA256 hash (the default in OpenSSH 6.8 and newer). 
+Be sure to use the MD5 hash of the SSH key for the TF_VAR_key_id vaiable; not the SHA256 hash. The SHA256 hash is the default printed out by `ssh-keygen` in OpenSSH 6.8 and newer, and is accepted by the [node-triton](https://github.com/joyent/node-triton) tools. If you have these tools installed, there is a good chance that you have the `TRITON_KEY_ID` environment variable set to the SHA256 value for your SSH key.
 
-You can generate the MD5 fingerprint for your key by using the following flags:
+You can generate the MD5 fingerprint for a SSH key by using the following flags with `ssh-keygen`
 
 ```
 $ ssh-keygen -l -E md5 -f  ~/.ssh/id_rsa.pub
 2048 MD5:db:95:dd:3d:dd:6e:52:69:21:96:2a:46:4a:8d:21:7e example@example.local (RSA)
 ```
 
-In this example, your fingerprint will be `db:95:dd:3d:dd:6e:52:69:21:96:2a:46:4a:8d:21:7e`.
+In this example, the SSH key id (fingerprint) is `db:95:dd:3d:dd:6e:52:69:21:96:2a:46:4a:8d:21:7e`.
+
+For comparision, the SHA256 fingerprint will appear as follows:
+
+```
+ssh-keygen -l  -f  ~/.ssh/id_rsa.pub
+2048 SHA256:8lJK34wkvadR5LNMj5WY4xFktFl/Q5UGcuKBtya9oO4 example@example.local (RSA)
+```
+
 
 You can check out the Terraform plan with:
 ```
