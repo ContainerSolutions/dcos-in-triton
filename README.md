@@ -21,7 +21,7 @@ $ export TF_VAR_key_id=yourkeyid
 $ export TF_VAR_key_path=/path/to/ssh/key # (defaults to ~/.ssh/id_rsa)
 ```
 
-Be sure to use the MD5 hash of the SSH key for the TF_VAR_key_id vaiable; not the SHA256 hash. The SHA256 hash is the default printed out by `ssh-keygen` in OpenSSH 6.8 and newer. Both MD5 and SHA256 formats are accepted by the [node-triton](https://github.com/joyent/node-triton) tools. If you have these tools installed, there is a good chance that you have the `TRITON_KEY_ID` environment variable set to the SHA256 value for your SSH key.
+Be sure to use the MD5 hash of the SSH key for the TF_VAR_key_id variable; not the SHA256 hash. The SHA256 hash is the default printed out by `ssh-keygen` in OpenSSH 6.8 and newer. Both MD5 and SHA256 formats are accepted by the [node-triton](https://github.com/joyent/node-triton) tools. If you have these tools installed, there is a good chance that you have the `TRITON_KEY_ID` environment variable set to the SHA256 value for your SSH key.
 
 You can generate the MD5 fingerprint for a SSH key by using the following flags with `ssh-keygen`
 
